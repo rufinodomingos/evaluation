@@ -18,4 +18,4 @@ Avaliação Desenvolvedor Back-end Attornatus
      - Diante de uma nova funcionalidade deve ser feito criteriosamente o levantamento completo dos requisitos, mapeamento dos processos, estruturação do fluxo, aplicação de testes.
 
   2. Em qual etapa da implementação você considera a qualidade de software?
-     - A qualidade de um software para mim deve ser considerado desde a sua etapa de concepção, ou seja desde o levantamento e analise dos requisitos funcionais e não funcionais para que se possa implementar um software com as minimas desconformidades
+     - A qualidade de um software para mim deve ser considerado desde a sua etapa de concepção, ou seja desde o levantamento e analise dos requisitos funcionais e não funcionais para que se possa implementar um software com as minimas desconformidades.
