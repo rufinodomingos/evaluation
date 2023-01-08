@@ -8,44 +8,53 @@ import com.attornatus.evaluation.repository.AddressRepository;
 import com.attornatus.evaluation.repository.PersonRepository;
 import com.attornatus.evaluation.service.AddressService;
 import org.springframework.beans.BeanUtils;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
-import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.UUID;
+import java.util.stream.Collectors;
+import java.util.stream.StreamSupport;
 
 @Service
 public class AddressServiceImpl implements AddressService {
 
-    @Autowired
-    AddressRepository addressRepository;
+    private final AddressRepository addressRepository;
+    private final PersonRepository personRepository;
 
-    @Autowired
-    PersonRepository personRepository;
-
-    @Override
-    public AddressDto createAddressForPerson(AddressDto addressDto, UUID personId) {
-        Optional<Address> existCepOptional = addressRepository.findAddressByCep(addressDto.getCep());
-        if (existCepOptional.isPresent()) {
-            throw new AttornatusException("CEP is already Registered");
-        }
-
-        Person personExistOptional = personRepository.findById(personId)
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Person not Exist!"));
-
-        addressDto.setPersonId(personId);
-        Address address = new Address(addressDto);
-        BeanUtils.copyProperties(addressDto, address);
-        address = addressRepository.save(address);
-        BeanUtils.copyProperties(address, addressDto);
-        return addressDto;
+    public AddressServiceImpl(AddressRepository addressRepository, PersonRepository personRepository) {
+        this.addressRepository = addressRepository;
+        this.personRepository = personRepository;
     }
 
     @Override
-    public List<AddressDto> findAddressByPerson(UUID personId) {
-        return null;
+    public Address createAddressForPerson(AddressDto addressDto, Long personId) {
+        Person personExistOptional = personRepository.findById(personId)
+                .orElseThrow(() -> new AttornatusException("Person not Exist!"));
+
+        if (addressDto.isPrincipal()) {
+            Optional<Address> existPrincipalOptional = addressRepository.findPrincipalAddress(personId);
+            if (existPrincipalOptional.isPresent()) {
+                throw new AttornatusException("A primary address for this person already exists!");
+            }
+        }
+
+        Address address = new Address();
+        BeanUtils.copyProperties(addressDto, address);
+        address.setPerson(personExistOptional);
+        address = addressRepository.save(address);
+        return address;
+    }
+
+    @Override
+    public List<Address> findAddressByPerson(Long personId) {
+        Person personExistOptional = personRepository.findById(personId)
+                .orElseThrow(() -> new AttornatusException("Person not Exist!"));
+
+        Iterable<Address> iterable = addressRepository.findAddressByPerson(personExistOptional);
+
+        return StreamSupport.stream(iterable.spliterator(), false)
+                .map(address -> {
+                    return address;
+                }).collect(Collectors.toList());
     }
 }

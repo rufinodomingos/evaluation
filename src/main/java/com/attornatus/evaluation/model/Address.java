@@ -1,17 +1,13 @@
 package com.attornatus.evaluation.model;
 
-import com.attornatus.evaluation.model.dto.AddressDto;
 import com.fasterxml.jackson.annotation.JsonInclude;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import org.hibernate.annotations.Type;
+import lombok.*;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.UUID;
 
-@Data
+@Getter
+@Setter
 @AllArgsConstructor
 @NoArgsConstructor
 @JsonInclude(JsonInclude.Include.NON_NULL)
@@ -22,14 +18,13 @@ public class Address implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @Id
-    @GeneratedValue
-    @Type(type="org.hibernate.type.UUIDCharType")
-    private UUID addressId;
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long addressId;
 
-    @Column(nullable = false, unique = true)
+    @Column(nullable = false)
     private String publicPlace;
 
-    @Column(nullable = false, unique = true)
+    @Column(nullable = false)
     private String cep;
 
     @Column(nullable = false)
@@ -45,16 +40,6 @@ public class Address implements Serializable {
     @JoinColumn(name="person_id", nullable=false)
     private Person person;
 
-    public Address(AddressDto addressDto) {
-        Person personModel = new Person();
-        personModel.setPersonId(addressDto.getPersonId());
-        this.person = personModel;
-        this.cep = addressDto.getCep();
-        this.city = addressDto.getCity();
-        this.publicPlace = addressDto.getPublicPlace();
-        this.number = addressDto.getNumber();
-        this.principal = addressDto.isPrincipal();
-    }
 
 
 }

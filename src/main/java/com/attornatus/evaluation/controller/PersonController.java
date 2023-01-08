@@ -1,6 +1,7 @@
 package com.attornatus.evaluation.controller;
 
 import com.attornatus.evaluation.exceptions.ApiExceptionHandler;
+import com.attornatus.evaluation.model.Person;
 import com.attornatus.evaluation.model.dto.PersonDto;
 import com.attornatus.evaluation.service.PersonService;
 import com.fasterxml.jackson.annotation.JsonView;
@@ -23,7 +24,6 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.List;
-import java.util.UUID;
 
 @RestController
 @RequestMapping("/person")
@@ -68,12 +68,12 @@ public class PersonController {
             @ApiResponse(responseCode = "404", description = "Did not find any Person", content = @Content(schema = @Schema(implementation = PersonDto.class), mediaType = MediaType.APPLICATION_JSON_VALUE)),
             @ApiResponse(responseCode = "500", description = "Server Exception", content = @Content(schema = @Schema(implementation = ApiExceptionHandler.class), mediaType = MediaType.APPLICATION_JSON_VALUE))})
     @GetMapping()
-    public ResponseEntity<Page<PersonDto>> findAll(@RequestParam(required = false, name = "name") String name,
+    public ResponseEntity<Page<Person>> findAll(@RequestParam(required = false, name = "name") String name,
                                                    @ParameterObject @PageableDefault(page = 0, size = 10, sort = "person_id", direction = Sort.Direction.ASC) Pageable pageable) {
-        List<PersonDto> personList = personService.findAllPersons(name);
+        List<Person> personList = personService.findAllPersons(name);
         int start = (int) pageable.getOffset();
         int end = (int) (Math.min((start + pageable.getPageSize()), personList.size()));
-        Page<PersonDto> personDtoPage = new PageImpl<PersonDto>(personList.subList(start, end), pageable, personList.size());
+        Page<Person> personDtoPage = new PageImpl<Person>(personList.subList(start, end), pageable, personList.size());
         return ResponseEntity.status(HttpStatus.OK).body(personDtoPage);
     }
 
@@ -88,9 +88,9 @@ public class PersonController {
             @ApiResponse(responseCode = "404", description = "Person not found",
                     content = @Content)})
     @GetMapping("/{personId}")
-    public ResponseEntity<PersonDto> findOnePerson(
+    public ResponseEntity<Person> findOnePerson(
             @Parameter(description = "id of person to be searched")
-            @PathVariable("personId") UUID personId) {
+            @PathVariable("personId") Long personId) {
         return ResponseEntity.status(HttpStatus.OK).body(personService.findOnePerson(personId));
     }
 

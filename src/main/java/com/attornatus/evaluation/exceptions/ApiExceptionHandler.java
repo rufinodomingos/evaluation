@@ -29,13 +29,6 @@ public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
         return handleExceptionInternal(ex, errors, headers, HttpStatus.BAD_REQUEST, request);
     }
 
-    @ExceptionHandler({AttornatusException.class})
-    public ResponseEntity<Object> handleExistingPatientException(AttornatusException ex, WebRequest request) {
-        Error erros = new Error(ex.getMessage(), ExceptionUtils.getRootCauseMessage(ex));
-        logger.error(erros, ex);
-        return handleExceptionInternal(ex, erros, new HttpHeaders(), HttpStatus.BAD_REQUEST, request);
-    }
-
 
     @ExceptionHandler({Exception.class})
     public ResponseEntity<Object> handleExceptions(Exception ex, WebRequest request) {

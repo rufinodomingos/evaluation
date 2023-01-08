@@ -3,13 +3,14 @@ package com.attornatus.evaluation.model.dto;
 import com.fasterxml.jackson.annotation.JsonView;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 
 import javax.validation.constraints.NotBlank;
 import java.time.LocalDate;
-import java.util.UUID;
 
 @Getter
 @Setter
+@ToString
 public class PersonDto {
 
     public interface PersonView {
@@ -18,7 +19,7 @@ public class PersonDto {
     }
 
     @JsonView({PersonView.PersonPut.class})
-    private UUID personId;
+    private Long personId;
 
     @JsonView({PersonView.RegistrationPost.class,PersonView.PersonPut.class})
     @NotBlank(groups = {PersonView.RegistrationPost.class,PersonView.PersonPut.class})

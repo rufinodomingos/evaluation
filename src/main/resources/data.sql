@@ -1,10 +1,2 @@
-insert into person (person_id, name, birth_date) values ('1249ac00-9575-41fc-8c17-1199425c709c', 'Audi Ghione', '2019-09-10');
-insert into person (person_id, name, birth_date) values ('2d8daf6e-fc20-4de2-ab43-cd81391b6c05', 'Clem Stailey', '1988-10-09');
-insert into person (person_id, name, birth_date) values ('bed8dbfc-c95c-4ad4-8312-daeb60df3d76', 'Sid Guynemer', '1990-09-01');
-insert into person (person_id, name, birth_date) values ('bcc49188-2558-43ff-8fea-ee83b27db21e', 'Gayelord Pass', '2003-12-21');
-insert into person (person_id, name, birth_date) values ('149def50-9afb-4282-bb05-2932393b8c82', 'Madison Milburne', '2017-06-21');
-insert into person (person_id, name, birth_date) values ('3f9c0751-63d5-4e73-bda0-ebbbf57dbfa9', 'Lennard Cristofol', '2022-05-12');
-insert into person (person_id, name, birth_date) values ('dea23156-1d42-46df-8c3d-aa856e787ac7', 'Liz Metheringham', '2013-06-30');
-insert into person (person_id, name, birth_date) values ('3904665b-3978-4b07-8858-cbb5fac1e731', 'Deidre Fanning', '2013-04-04');
-insert into person (person_id, name, birth_date) values ('3e7a94bd-d0b4-466a-95f0-b8a2a51bda82', 'Thomas Wilbor', '2004-11-21');
-insert into person (person_id, name, birth_date) values ('186df606-e3ef-4523-aacd-caed7a94a799', 'Toddy Liff', '2022-03-23');
+insert into person (PERSON_ID, BIRTH_DATE, NAME) values (1, '1994-06-04', 'Rufino Domingos');
+insert into address (address_id, cep, city, number, principal, public_place, person_id) values (1, '197633-21', 'Sao Paulo', '1234', true, 'Santa Catarina', 1);

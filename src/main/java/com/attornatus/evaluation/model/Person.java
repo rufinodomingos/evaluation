@@ -1,19 +1,19 @@
 package com.attornatus.evaluation.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import org.hibernate.annotations.Type;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateSerializer;
+import lombok.*;
 
 import javax.persistence.*;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.Set;
-import java.util.UUID;
 
-@Data
+@Getter
+@Setter
 @AllArgsConstructor
 @NoArgsConstructor
 @JsonInclude(JsonInclude.Include.NON_NULL)
@@ -24,20 +24,19 @@ public class Person implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @Id
-    @GeneratedValue
-    @Type(type="org.hibernate.type.UUIDCharType")
-    private UUID personId;
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long personId;
 
     @Column(nullable = false, unique = true)
     private String name;
 
     @Column
+    @JsonSerialize(using = LocalDateSerializer.class)
+    @JsonFormat(pattern="yyyy-MM-dd")
     private LocalDate birthDate;
 
     @JsonIgnore
     @OneToMany(fetch = FetchType.LAZY, mappedBy="person")
     private Set<Address> addresses;
-
-
 
 }
