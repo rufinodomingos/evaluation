@@ -1,2 +1,0 @@
-insert into person (PERSON_ID, BIRTH_DATE, NAME) values (1, '1994-06-04', 'Rufino Domingos');
-insert into address (address_id, cep, city, number, principal, public_place, person_id) values (1, '197633-21', 'Sao Paulo', '1234', true, 'Santa Catarina', 1);

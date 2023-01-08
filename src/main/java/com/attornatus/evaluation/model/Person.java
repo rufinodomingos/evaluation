@@ -19,12 +19,9 @@ import java.util.Set;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @Entity
 @Table(name = "person")
-public class Person implements Serializable {
+public class Person {
 
-    private static final long serialVersionUID = 1L;
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long personId;
 
     @Column(nullable = false, unique = true)

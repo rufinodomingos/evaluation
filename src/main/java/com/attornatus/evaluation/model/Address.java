@@ -13,12 +13,9 @@ import java.io.Serializable;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @Entity
 @Table(name = "address")
-public class Address implements Serializable {
+public class Address {
 
-    private static final long serialVersionUID = 1L;
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long addressId;
 
     @Column(nullable = false)
