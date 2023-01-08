@@ -12,7 +12,7 @@ Avaliação Desenvolvedor Back-end Attornatus
 7. Poder informar qual endereço é o principal da pessoa 
 
 
-## Qualidade de código
+## Qualidade de código(RESPOSTAS)
 
   1. Durante a implementação de uma nova funcionalidade de software solicitada, quais critérios você avalia e implementa para garantia de qualidade de software?
      - Diante de uma nova funcionalidade deve ser feito criteriosamente o levantamento completo dos requisitos, mapeamento dos processos, estruturação do fluxo, aplicação de testes.
